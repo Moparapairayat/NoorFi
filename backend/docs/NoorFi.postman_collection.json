@@ -1,0 +1,288 @@
+{
+  "info": {
+    "name": "NoorFi API",
+    "_postman_id": "f2e3f7a0-7b3d-4b31-a8fd-1a5e7df4f7a1",
+    "description": "NoorFi backend collection for auth, wallet, card, deposit, transfer, withdraw, exchange.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "token", "value": "" },
+    { "key": "wallet_id", "value": "1" },
+    { "key": "transfer_id", "value": "1" },
+    { "key": "deposit_id", "value": "1" },
+    { "key": "withdrawal_id", "value": "1" },
+    { "key": "exchange_id", "value": "1" },
+    { "key": "card_id", "value": "1" },
+    { "key": "transaction_id", "value": "1" },
+    { "key": "quote_id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Request OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@noorfi.com\",\n  \"flow\": \"login\"\n}"
+            },
+            "url": "{{base_url}}/auth/otp/request"
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@noorfi.com\",\n  \"flow\": \"login\",\n  \"code\": \"123456\"\n}"
+            },
+            "url": "{{base_url}}/auth/otp/verify"
+          }
+        },
+        {
+          "name": "Set PIN",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pin\": \"1234\"\n}"
+            },
+            "url": "{{base_url}}/auth/set-pin"
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/auth/me"
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wallets",
+      "item": [
+        {
+          "name": "List Wallets",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/wallets"
+          }
+        },
+        {
+          "name": "Show Wallet",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/wallets/{{wallet_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "item": [
+        {
+          "name": "List Cards",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/cards"
+          }
+        },
+        {
+          "name": "Apply Virtual Card",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"card_type\": \"virtual\",\n  \"card_name\": \"USDC\",\n  \"holder_name\": \"MOPARA PAIR AYAT\",\n  \"theme\": \"islamic-emerald\",\n  \"funding_wallet_id\": {{wallet_id}},\n  \"issue_fee\": 10\n}"
+            },
+            "url": "{{base_url}}/cards/apply"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deposits",
+      "item": [
+        {
+          "name": "Deposit Options",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/deposits/options"
+          }
+        },
+        {
+          "name": "Create Deposit",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet_id\": {{wallet_id}},\n  \"method\": \"crypto_wallet\",\n  \"amount\": 100,\n  \"network\": \"TRC20\",\n  \"note\": \"Top up\",\n  \"auto_credit\": false\n}"
+            },
+            "url": "{{base_url}}/deposits"
+          }
+        },
+        {
+          "name": "List Deposits",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/deposits"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transfers",
+      "item": [
+        {
+          "name": "Create Transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet_id\": {{wallet_id}},\n  \"recipient_email\": \"friend@noorfi.com\",\n  \"amount\": 25,\n  \"note\": \"Support\",\n  \"pin\": \"1234\"\n}"
+            },
+            "url": "{{base_url}}/transfers"
+          }
+        },
+        {
+          "name": "List Transfers",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/transfers"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Withdrawals",
+      "item": [
+        {
+          "name": "Create Withdrawal",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet_id\": {{wallet_id}},\n  \"method\": \"crypto_wallet\",\n  \"network\": \"TRC20\",\n  \"destination_address\": \"TK5vP6sawCJJz7HiN46vP5VYFXe1QHkBLS\",\n  \"recipient_name\": \"MOPARA PAIR AYAT\",\n  \"amount\": 50,\n  \"pin\": \"1234\"\n}"
+            },
+            "url": "{{base_url}}/withdrawals"
+          }
+        },
+        {
+          "name": "List Withdrawals",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/withdrawals"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Exchanges",
+      "item": [
+        {
+          "name": "Get Rates",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/exchanges/rates"
+          }
+        },
+        {
+          "name": "Create Quote",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_currency\": \"usd\",\n  \"to_currency\": \"sol\",\n  \"amount_from\": 100\n}"
+            },
+            "url": "{{base_url}}/exchanges/quote"
+          }
+        },
+        {
+          "name": "Create Exchange",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_wallet_id\": {{wallet_id}},\n  \"to_currency\": \"sol\",\n  \"amount_from\": 100,\n  \"quote_id\": \"{{quote_id}}\",\n  \"pin\": \"1234\"\n}"
+            },
+            "url": "{{base_url}}/exchanges"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/transactions"
+          }
+        },
+        {
+          "name": "Show Transaction",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/transactions/{{transaction_id}}"
+          }
+        }
+      ]
+    }
+  ]
+}
+

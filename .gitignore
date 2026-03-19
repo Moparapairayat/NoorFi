@@ -1,0 +1,24 @@
+# dependencies
+**/node_modules/
+**/vendor/
+
+# env
+**/.env
+**/.env.*
+!**/.env.example
+
+# logs
+**/*.log
+
+# build artifacts
+**/dist/
+**/build/
+**/web-build/
+**/.expo/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# temp exports
+tmp_*.html
