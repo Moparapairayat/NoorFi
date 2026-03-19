@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "NoorFi",
+    "slug": "noorfi",
+    "scheme": "noorfi",
+    "version": "1.0.0",
+    "newArchEnabled": false,
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow NoorFi to use camera for KYC selfie and identity verification.",
+        "NSMicrophoneUsageDescription": "Allow NoorFi to use microphone during secure KYC liveness checks.",
+        "NFCReaderUsageDescription": "Allow NoorFi to read secure NFC identity chip data when required for KYC.",
+        "NSLocationWhenInUseUsageDescription": "Allow NoorFi to detect your verification region for secure KYC."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": true,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.NFC",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.moparapairayat.noorfi"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow NoorFi to access your location to show accurate prayer times."
+        }
+      ],
+      "expo-web-browser",
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow NoorFi to use Face ID for secure login."
+        }
+      ],
+      "@didit-protocol/sdk-react-native"
+    ]
+  }
+}
